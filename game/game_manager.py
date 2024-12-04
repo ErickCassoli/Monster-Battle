@@ -29,7 +29,7 @@ class GameManager:
 
             print(f"\nTurno de {current_player.name}")
             print("Escolha sua ação:")
-            print("1. Ataque Básico\n2. Ataque de Raça\n3. Ataque de Classe\n4. Ultimate")
+            print(f"1. {current_player.char_class.hit_name}\n2. {current_player.race.skill_name}\n3. {current_player.char_class.attack_skill_name}\n4. {current_player.char_class.ultimate_skill_name}")
             action = input("Escolha: ")
 
             if action == "1":
@@ -66,7 +66,7 @@ class GameManager:
                 self.show_health(player, monster)
                 print("\nTurno do jogador")
                 print("Escolha sua ação:")
-                print("1. Ataque Básico\n2. Ataque de Raça\n3. Ataque de Classe\n4. Ultimate")
+                print(f"1. {player.char_class.hit_name}\n2. {player.race.skill_name}\n3. {player.char_class.attack_skill_name}\n4. {player.char_class.ultimate_skill_name}")
                 action = input("Escolha: ")
 
                 if action == "1":
