@@ -1,19 +1,29 @@
 from game.game_manager import GameManager
-from game.character.baseCharacter import BaseCharacter
-from game.character.races.elf import Elf
-from game.character.classes.warrior import Warrior
+from game.save_manager import SaveManager
 
 def main():
-    print("Bem-vindo ao Batalha de Waves!")
-    print("Crie seu personagem.")
+    game_manager = GameManager()
 
-    # Criar personagem do jogador
-    player_name = input("Nome do personagem: ")
-    player = BaseCharacter(player_name, Elf(), Warrior())
+    print("Bem-vindo ao Batalha de Monstros!")
+    while True:
+        print("\nMenu Principal:")
+        print("1. PvP (Jogador vs Jogador)\n2. PvE (Jogador vs Computador)\n3. Carregar Pontuações\n4. Sair")
+        choice = input("Escolha: ")
 
-    # Iniciar o jogo
-    game_manager = GameManager(player)
-    game_manager.start_game()
+        if choice == "1":
+            game_manager.pvp_mode()
+        elif choice == "2":
+            game_manager.pve_mode()
+        elif choice == "3":
+            scores = SaveManager.load_scores()
+            print("Pontuações Salvas:")
+            for player, score in scores.items():
+                print(f"{player}: {score}")
+        elif choice == "4":
+            print("Saindo do jogo. Até logo!")
+            break
+        else:
+            print("Escolha inválida!")
 
 if __name__ == "__main__":
     main()

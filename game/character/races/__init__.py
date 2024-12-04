@@ -1,1 +1,1 @@
-from elf import Elf
+from .elf import Elf
