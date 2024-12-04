@@ -1,5 +1,5 @@
-from game.character import BaseRace
-from game.character import BaseClass
+from .baseRace import BaseRace
+from .baseClass import BaseClass
 
 class BaseCharacter:
     def __init__(self, name, race, char_class):

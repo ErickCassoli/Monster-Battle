@@ -1,4 +1,4 @@
-from baseMonster import BaseMonster
+from ..baseMonster import BaseMonster
 
 class Goblin(BaseMonster):
     def __init__(self):
