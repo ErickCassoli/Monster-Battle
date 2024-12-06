@@ -33,7 +33,19 @@
    git clone <URL-DO-REPOSITORIO>
    cd Monster-Battle
    ```
-2. Execute o jogo:
+2. Cria ambiente virtual:
+   ```bash
+   python -m venv ./venv
+   ```
+3. Ativar ambiente virtual:
+   ```bash
+   ./venv/Scripts/activate
+   ```
+4. Instalar as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. Execute o jogo:
    ```bash
    python main.py
    ```
