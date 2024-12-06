@@ -15,7 +15,7 @@ def mock_input(monkeypatch):
     """
     Mocka as entradas do usuário para a criação de personagem.
     """
-    inputs = iter(["TestPlayer", "1", "1"])  # Nome, Classe: Warrior, Raça: Elf
+    inputs = iter(["TestPlayer", 3, 6])  # Nome, Classe: Warrior, Raça: Elf
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
 
 def test_create_character(mock_input):
@@ -30,4 +30,3 @@ def test_create_character(mock_input):
     assert character.health > 0, "O personagem deveria ter saúde inicial maior que 0."
     assert hasattr(character, "basic_attack"), "O personagem deveria possuir o método basic_attack."
     assert hasattr(character, "ultimate"), "O personagem deveria possuir o método ultimate."
-
