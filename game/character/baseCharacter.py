@@ -17,9 +17,12 @@ class BaseCharacter:
         self.ultimate_ready = False
 
     def basic_attack(self, target):
+        hit_name = self.char_class.hit_name
         damage = max(0, self.attack_power - target.defense)
         target.health -= damage
-        print(f"{self.name} realizou um ataque básico contra {target.name}, causando {damage} de dano!")
+        print(f"{self.name} realizou um {hit_name} contra {target.name}, causando {damage} de dano!")
+        self.char_class.turns_since_last_ultimate += 1
+        self.char_class.check_ultimate_ready(self)
 
     def race_attack(self, target):
         self.race.attack(self, target)

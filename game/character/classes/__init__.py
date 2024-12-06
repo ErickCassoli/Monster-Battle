@@ -1,1 +1,1 @@
-from warrior import Warrior 
+from .warrior import Warrior 

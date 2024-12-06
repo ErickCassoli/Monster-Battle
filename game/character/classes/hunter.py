@@ -1,16 +1,16 @@
 from ..baseClass import BaseClass
 
-class Warrior(BaseClass):
+class Hunter(BaseClass):
     def __init__(self):
-        super().__init__("Guerreiro", base_health=20, base_attack=5, base_defense=5)
-        self.hit_name = "Golpe com Espada"
-        self.attack_skill_name = "Golpe Giratório"
-        self.ultimate_skill_name = "Fúria de Batalha"
-        self.turns_since_last_ultimate = 0  # Contador para carregar a ultimate
+        super().__init__("Caçador", base_health=14, base_attack=6, base_defense=4)
+        self.hit_name = "Flecha Veloz"
+        self.attack_skill_name = "Disparo Preciso"
+        self.ultimate_skill_name = "Chuva de Flechas"
+        self.turns_since_last_ultimate = 0
 
     def attack(self, character, target):
         damage = self.calculate_damage()
-        print(f"{character.name} (Guerreiro) usou {self.attack_skill_name} contra {target.name}, causando {damage} de dano!")
+        print(f"{character.name} (Caçador) usou {self.attack_skill_name} contra {target.name}, causando {damage} de dano!")
         target.health -= damage
         self.turns_since_last_ultimate += 1
         self.check_ultimate_ready(character)
@@ -23,14 +23,13 @@ class Warrior(BaseClass):
             print(f"{character.name} tentou usar {self.ultimate_skill_name}, mas ela ainda não está pronta!")
             return
         damage = 50
-        print(f"{character.name} (Guerreiro) usou {self.ultimate_skill_name}, causando {damage} de dano massivo!")
+        print(f"{character.name} (Caçador) lançou {self.ultimate_skill_name}, atingindo todos os inimigos com flechas devastadoras!")
         target.health -= damage
-        character.ultimate_ready = False  # Reseta o carregamento
+        character.ultimate_ready = False
         self.turns_since_last_ultimate = 0
 
     def check_ultimate_ready(self, character):
-        """Carrega a ultimate após 3 turnos."""
-        if self.turns_since_last_ultimate >= 3:
+        if self.turns_since_last_ultimate >= 4:
             character.ultimate_ready = True
             print(f"A ultimate {self.ultimate_skill_name} de {character.name} está pronta!")
             self.turns_since_last_ultimate = 0

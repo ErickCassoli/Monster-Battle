@@ -1,63 +1,98 @@
-import random
-from .monster_factory import MonsterFactory
-from .save_manager import SaveManager
+from game.utils.character_utils import create_character
+from game.monster_factory import MonsterFactory
+from game.save_manager import SaveManager
 
 class GameManager:
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
         self.wave = 1
         self.score = 0
 
-    def start_game(self):
-        print(f"Bem-vindo, {self.player.name}! Prepare-se para enfrentar as waves de inimigos!")
-        
-        while self.player.health > 0:
+    def show_health(self, player, enemy):
+        print(f"\nHP de {player.name}: {player.health}")
+        print(f"HP de {enemy.name}: {enemy.health}")
+
+
+    def pvp_mode(self):
+        print("Jogador 1, crie seu personagem:")
+        player1 = create_character()
+
+        print("Jogador 2, crie seu personagem:")
+        player2 = create_character()
+
+        players = [player1, player2]
+        turn = 0
+
+        while all(player.health > 0 for player in players):
+            current_player = players[turn % 2]
+            target = players[(turn + 1) % 2]
+            self.show_health(current_player, target)
+
+            print(f"\nTurno de {current_player.name}")
+            print("Escolha sua ação:")
+            print(f"1. {current_player.char_class.hit_name}\n2. {current_player.race.skill_name}\n3. {current_player.char_class.attack_skill_name}\n4. {current_player.char_class.ultimate_skill_name}")
+            action = input("Escolha: ")
+
+            if action == "1":
+                current_player.basic_attack(target)
+            elif action == "2":
+                current_player.race_attack(target)
+            elif action == "3":
+                current_player.class_attack(target)
+            elif action == "4":
+                current_player.ultimate(target)
+            else:
+                print("Ação inválida!")
+
+            if target.health <= 0:
+                print(f"{target.name} foi derrotado!")
+                break
+
+            turn += 1
+
+        winner = players[0] if players[0].health > 0 else players[1]
+        print(f"\n{winner.name} venceu a batalha!")
+
+
+    def pve_mode(self):
+        print("Crie seu personagem:")
+        player = create_character()
+
+        while player.health > 0:
             print(f"\n=== Wave {self.wave} ===")
-            
-            # Recuperação de HP no início da wave
-            self.recover_health()
+            monster = MonsterFactory.create_monster(self.wave)
+            print(f"Você está enfrentando um {monster.name} com {monster.health} de HP!")
 
-            # Criar inimigo para a wave atual
-            enemy = MonsterFactory.create_monster(self.wave)
-            print(f"Você está enfrentando um {enemy.name} com {enemy.health} de HP!")
+            while player.health > 0 and monster.health > 0:
+                self.show_health(player, monster)
+                print("\nTurno do jogador")
+                print("Escolha sua ação:")
+                print(f"1. {player.char_class.hit_name}\n2. {player.race.skill_name}\n3. {player.char_class.attack_skill_name}\n4. {player.char_class.ultimate_skill_name}")
+                action = input("Escolha: ")
 
-            # Combate
-            self.combat(enemy)
+                if action == "1":
+                    player.basic_attack(monster)
+                elif action == "2":
+                    player.race_attack(monster)
+                elif action == "3":
+                    player.class_attack(monster)
+                elif action == "4":
+                    player.ultimate(monster)
+                else:
+                    print("Ação inválida!")
 
-            if self.player.health > 0:
-                print(f"Parabéns! Você sobreviveu à wave {self.wave}!")
-                self.wave += 1
-                self.score += 100  # Aumenta a pontuação por wave concluída
+                if monster.health > 0:
+                    self.show_health(player, monster)
+                    print("\nTurno do monstro")
+                    monster.attack(player)
+
+            if player.health <= 0:
+                print(f"\nVocê foi derrotado na Wave {self.wave}!")
+                break
+
+            print(f"Parabéns! Você sobreviveu à Wave {self.wave}!")
+            self.wave += 1
+            self.score += 100
+            player.health = min(player.health + 10, 100)  # Recupera 10 HP por wave
 
         print(f"Fim de jogo! Sua pontuação final foi: {self.score}")
-        SaveManager.save_score(self.player.name, self.score)
-
-    def recover_health(self):
-        recovery = min(10, 100 - self.player.health)  # Recupera 10 HP ou o necessário até o máximo
-        self.player.health += recovery
-        print(f"{self.player.name} recuperou {recovery} de HP! HP atual: {self.player.health}")
-
-    def combat(self, enemy):
-        while self.player.health > 0 and enemy.health > 0:
-            print("\nSuas opções:")
-            print("1. Ataque Básico")
-            print("2. Ataque de Raça")
-            print("3. Ataque de Classe")
-            print("4. Ultimate")
-
-            choice = input("Escolha sua ação: ")
-
-            if choice == "1":
-                self.player.basic_attack(enemy)
-            elif choice == "2":
-                self.player.race_attack(enemy)
-            elif choice == "3":
-                self.player.class_attack(enemy)
-            elif choice == "4":
-                self.player.ultimate(enemy)
-            else:
-                print("Opção inválida!")
-
-            if enemy.health > 0:
-                enemy.attack(self.player)
-                print(f"O {enemy.name} atacou! HP do jogador: {self.player.health}")
+        SaveManager.save_score(player.name, self.score)
