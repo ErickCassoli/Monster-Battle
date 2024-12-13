@@ -139,8 +139,9 @@ Siga estas diretrizes para contribuir:
 ## Autores
 Este projeto foi desenvolvido para o aprendizado de padrões de design e sistemas de combate baseados em turnos. Sinta-se à vontade para utilizá-lo e expandi-lo.
 feito por:
-Erick Cassoli
-Gabriel Ramos
-Sergio Ricardo
+
+- Erick Cassoli
+- Gabriel Ramos
+- Sergio Ricardo
 
 ---
