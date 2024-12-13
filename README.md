@@ -52,6 +52,31 @@
 
 ---
 
+## Como Executar (testes)
+1. Clone o repositório:
+   ```bash
+   git clone <URL-DO-REPOSITORIO>
+   cd Monster-Battle
+   ```
+2. Cria ambiente virtual:
+   ```bash
+   python -m venv ./venv
+   ```
+3. Ativar ambiente virtual:
+   ```bash
+   ./venv/Scripts/activate
+   ```
+4. Instalar as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. Execute o jogo:
+   ```bash
+   pytest tests/[Test-name]
+   ```
+
+---
+
 ## Como Jogar
 1. Ao iniciar o jogo, escolha uma das opções do menu principal:
    - `1`: Jogar no modo PvP.
