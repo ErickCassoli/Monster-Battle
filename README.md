@@ -111,6 +111,15 @@
 
 ---
 
+## Padrões de projetos
+- `Factory`: Em monster_factory.py, para criar instâncias flexíveis de monstros.
+- `Facade/Controller`: Em game_manager.py, para organizar o fluxo e as interações do jogo.
+- `Singleton-like Utility`: Em save_manager.py, para manipular o estado persistente do jogo.
+- `Herança e Polimorfismo`: Implementados em baseMonster.py e subclasses específicas como Dragon.
+- `Template Method`: No método special_ability de BaseMonster, fornecendo um comportamento que é sobrescrito nas subclasses.
+
+---
+
 ## Extensibilidade
 O projeto foi estruturado de forma modular para facilitar a adição de:
 - Novos tipos de monstros.
