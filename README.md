@@ -1,5 +1,8 @@
 # Monster-Battle
 
+##Aviso:
+Esse projeto foi desenvolvido como um trabalho academico para estudo de Design Pattern, modularidade e escalabilidade
+
 ## Descrição
 **Monster-Battle** é um jogo de batalha entre monstros baseado em turnos, jogado diretamente no console. Nele, os jogadores podem escolher e personalizar seus personagens para participar de intensas batalhas PvP (Jogador vs Jogador) ou PvE (Jogador vs Computador). O objetivo é derrotar o adversário utilizando ataques básicos, habilidades especiais e estratégias defensivas.
 
